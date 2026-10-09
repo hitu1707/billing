@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 15s    # Collect data every 15 seconds
+
+scrape_configs:
+  # Prometheus monitors itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Monitor your Bill Tracker Backend (we will add metrics later)
+  - job_name: 'bill-tracker-backend'
+    static_configs:
+      - targets: ['host.docker.internal:3000']

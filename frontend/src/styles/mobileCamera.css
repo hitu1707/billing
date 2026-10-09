@@ -1,0 +1,139 @@
+/* ─── LIVE CAMERA VIEWFINDER ─── */
+.camera-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 20px;
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.camera-video {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Scanner Frame Overlay */
+.camera-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.scanner-frame {
+  flex: 1;
+  border: 2px dashed rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+}
+
+.scanner-hint {
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  margin-top: 12px;
+}
+
+/* Camera Action Bar */
+.camera-controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 16px;
+  background: #111827;
+}
+
+.btn-shutter {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 4px solid #4f46e5;
+  box-shadow: 0 0 0 4px #ffffff;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.btn-shutter:active {
+  transform: scale(0.9);
+}
+
+.camera-secondary-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ─── MOBILE BOTTOM NAVIGATION BAR ─── */
+.bottom-app-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.app-bar-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.app-bar-tab.active {
+  color: #4f46e5;
+}
+
+.app-bar-tab .tab-icon {
+  font-size: 20px;
+}
+
+.scan-floating-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-top: -24px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.scan-floating-btn:active {
+  transform: scale(0.92);
+}

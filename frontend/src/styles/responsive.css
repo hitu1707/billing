@@ -1,0 +1,75 @@
+/* ─── DESKTOP (Screens > 768px) ─── */
+@media (min-width: 769px) {
+  .bottom-app-bar {
+    display: none !important; /* Hide mobile bottom bar on desktop */
+  }
+
+  .container {
+    padding: 0 32px;
+  }
+}
+
+/* ─── MOBILE (Screens <= 768px) ─── */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 76px; /* Prevents bottom navigation from covering content */
+  }
+
+  /* Hide desktop text links in top navbar */
+  .navbar-links .nav-link {
+    display: none;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* 2x2 Grid for Dashboard Stats on Phone */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  /* 1-column single list for Bills on Phone */
+  .bills-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Controls & Search */
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .filter-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-btn {
+    flex: 0 0 auto;
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+
+  .btn {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+
+  .bill-card-img {
+    height: 180px;
+  }
+}
