@@ -1,6 +1,20 @@
 import winston from 'winston';
 import path from 'path';
+import os from 'os';
+import fs from 'fs';
 import LokiTransport from 'winston-loki';
+
+// Vercel's filesystem is read-only except for the OS temp dir, so file logs
+// land in /tmp there. Local dev keeps the stable ./src/logs folder.
+const logDir =
+  process.env.LOG_DIR ||
+  (process.env.VERCEL ? os.tmpdir() : path.join(process.cwd(), 'src/logs'));
+
+try {
+  fs.mkdirSync(logDir, { recursive: true });
+} catch {
+  // Falls back to console-only logging if the directory cannot be created.
+}
 
 // Redact PII and credentials before anything reaches a log sink.
 const REDACTIONS = [
@@ -42,19 +56,32 @@ const logFormat = winston.format.combine(
 );
 
 const transports = [
-  new winston.transports.File({
-    filename: path.join(process.cwd(), 'src/logs/error.log'),
-    level: 'error'
-  }),
-  new winston.transports.File({
-    filename: path.join(process.cwd(), 'src/logs/combined.log')
-  }),
   new winston.transports.Console({
     format: winston.format.combine(winston.format.colorize(), logFormat)
   })
 ];
 
-if (process.env.NODE_ENV !== 'test') {
+let fileLoggingEnabled = true;
+try {
+  fs.accessSync(logDir, fs.constants.W_OK);
+} catch {
+  fileLoggingEnabled = false;
+}
+
+if (fileLoggingEnabled) {
+  transports.unshift(
+    new winston.transports.File({
+      filename: path.join(logDir, 'error.log'),
+      level: 'error'
+    }),
+    new winston.transports.File({
+      filename: path.join(logDir, 'combined.log')
+    })
+  );
+}
+
+// Loki only runs in the local monitoring stack, never on Vercel.
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   transports.push(
     new LokiTransport({
       host: 'http://127.0.0.1:3100',
